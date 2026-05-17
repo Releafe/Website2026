@@ -6,7 +6,7 @@ interface HeroProps {
 
 export default function Hero({ onWaitlist }: HeroProps) {
   return (
-    <section className="pt-4 sm:pt-8 lg:pt-10 bg-white overflow-hidden">
+    <section className="pt-20 sm:pt-12 lg:pt-10 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-center py-6 sm:py-12 lg:py-20">
           {/* Left: text */}

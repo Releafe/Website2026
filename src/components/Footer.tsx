@@ -49,8 +49,11 @@ export default function Footer({ onFounders }: FooterProps) {
                 <Users className="w-4 h-4" />
               </button>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/releafeapp/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all"
+                aria-label="Releafe op LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
