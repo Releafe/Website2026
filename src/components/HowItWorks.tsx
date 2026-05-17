@@ -43,15 +43,12 @@ export default function HowItWorks({ onWaitlist }: HowItWorksProps) {
               <br />
               <span className="text-brand-400">Gericht werken aan preventie.</span>
             </h2>
-            <p className="text-slate-500 text-lg leading-relaxed mb-10">
-              Teamwelzijn en werkdruk op teamniveau in één oogopslag
-              <br className="hidden sm:block" />
-              Vroege signalen van verhoogde werkdruk direct zichtbaar
-              <br className="hidden sm:block" />
-              Vitaliteitsscore per afdeling of team
-              <br className="hidden sm:block" />
-              Individuele data altijd beschermd — privacy by design
-            </p>
+            <ul className="text-slate-500 text-lg leading-relaxed mb-10 space-y-2 list-disc list-outside pl-5 marker:text-brand-400">
+              <li>Teamwelzijn en werkdruk op teamniveau in één oogopslag</li>
+              <li>Vroege signalen van verhoogde werkdruk direct zichtbaar</li>
+              <li>Vitaliteitsscore per afdeling of team</li>
+              <li>Individuele data altijd beschermd — privacy by design</li>
+            </ul>
             <button
               onClick={onWaitlist}
               className="bg-brand-400 hover:bg-brand-500 text-white font-semibold px-8 py-4 rounded-xl text-base transition-all duration-150 shadow-lg shadow-brand-400/20"
