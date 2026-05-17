@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  @keyframes dropBounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-100vh) scale(0.8);
+    }
+    10% {
+      opacity: 1;
+    }
+    45% {
+      transform: translateY(0) scale(1);
+      animation-timing-function: ease-in;
+    }
+    50% {
+      transform: translateY(-10px) scale(1);
+      animation-timing-function: ease-out;
+    }
+    60% {
+      transform: translateY(0) scale(1);
+    }
+    70% {
+      transform: translateY(-5px) scale(1);
+    }
+    80% {
+      transform: translateY(0) scale(1);
+    }
+    90% {
+      transform: translateY(-2px) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .animate-drop-bounce {
+    animation: dropBounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+
+  .animate-drop-bounce-delay-1 {
+    animation: dropBounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s forwards;
+  }
+
+  .animate-drop-bounce-delay-2 {
+    animation: dropBounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
