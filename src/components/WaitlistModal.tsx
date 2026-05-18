@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 
 interface WaitlistModalProps {
@@ -16,9 +16,9 @@ const MAILERLITE_FORM_URL =
 
 export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const [email, setEmail] = useState('');
-  const [hasSubscribed, setHasSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   if (!open) return null;
 
@@ -48,19 +48,21 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         body: formData,
       });
 
-      setHasSubscribed(true);
+      // Erfolg: Modal schließen und zur Confirmation-Page weiterleiten
+      setEmail('');
+      onClose();
+      navigate('/wachtlijst');
     } catch (err) {
       console.error('Waitlist submit error:', err);
       setErrorMessage('Er ging iets mis. Probeer het later opnieuw.');
-    } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleClose = () => {
     setEmail('');
-    setHasSubscribed(false);
     setErrorMessage(null);
+    setIsSubmitting(false);
     onClose();
   };
 
@@ -99,52 +101,44 @@ export default function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 📩 Kom op de wachtlijst:
               </h3>
 
-              {hasSubscribed ? (
-                <p className="font-light text-lg xl:text-xl text-slate-700">
-                  Je staat op de wachtlijst! 🎉
-                </p>
-              ) : (
-                <>
-                  <form
-                    className="flex flex-col items-center lg:flex-row gap-x-2 gap-y-3 w-full"
-                    onSubmit={handleSubmit}
-                  >
-                    <input
-                      className="rounded-full bg-gray-100 w-full lg:w-2/3 text-base xl:text-lg h-[50px] xl:h-[60px] px-6 outline-none focus:ring-2 focus:ring-[#8fa58b] transition-all"
-                      type="email"
-                      placeholder="email@example.com"
-                      required
-                      disabled={isSubmitting}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="relative flex justify-center items-center rounded-full h-[50px] lg:h-[60px] w-full lg:w-[20rem] bg-gradient-to-b from-[#c5d5bc] to-[#8fa58b] transition duration-300 ease-in-out font-bold text-white text-base xl:text-lg leading-none disabled:opacity-60 disabled:cursor-not-allowed"
-                    >
-                      <span className="absolute inset-0 bg-black opacity-0 rounded-full transition-opacity duration-300 ease-out hover:opacity-15"></span>
-                      <p className="relative z-10 pointer-events-none">
-                        {isSubmitting ? 'Bezig...' : 'Meld je aan'}
-                      </p>
-                    </button>
-                  </form>
-                  {errorMessage && (
-                    <p className="text-sm text-red-600">{errorMessage}</p>
-                  )}
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    Door je aan te melden geef je ons toestemming om je per e-mail te informeren over Releafe. We verwerken je gegevens volgens onze{' '}
-                    <Link
-                      to="/privacy"
-                      onClick={handleClose}
-                      className="underline hover:text-slate-700 transition-colors"
-                    >
-                      privacyverklaring
-                    </Link>
-                    .
+              <form
+                className="flex flex-col items-center lg:flex-row gap-x-2 gap-y-3 w-full"
+                onSubmit={handleSubmit}
+              >
+                <input
+                  className="rounded-full bg-gray-100 w-full lg:w-2/3 text-base xl:text-lg h-[50px] xl:h-[60px] px-6 outline-none focus:ring-2 focus:ring-[#8fa58b] transition-all"
+                  type="email"
+                  placeholder="email@example.com"
+                  required
+                  disabled={isSubmitting}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="relative flex justify-center items-center rounded-full h-[50px] lg:h-[60px] w-full lg:w-[20rem] bg-gradient-to-b from-[#c5d5bc] to-[#8fa58b] transition duration-300 ease-in-out font-bold text-white text-base xl:text-lg leading-none disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  <span className="absolute inset-0 bg-black opacity-0 rounded-full transition-opacity duration-300 ease-out hover:opacity-15"></span>
+                  <p className="relative z-10 pointer-events-none">
+                    {isSubmitting ? 'Bezig...' : 'Meld je aan'}
                   </p>
-                </>
+                </button>
+              </form>
+              {errorMessage && (
+                <p className="text-sm text-red-600">{errorMessage}</p>
               )}
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Door je aan te melden geef je ons toestemming om je per e-mail te informeren over Releafe. We verwerken je gegevens volgens onze{' '}
+                <Link
+                  to="/privacy"
+                  onClick={handleClose}
+                  className="underline hover:text-slate-700 transition-colors"
+                >
+                  privacyverklaring
+                </Link>
+                .
+              </p>
             </div>
 
           </div>
